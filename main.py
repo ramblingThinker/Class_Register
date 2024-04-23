@@ -6,7 +6,9 @@ import string
 
 
 # global variables
-students = [] # list of dictionaries
+students = [{"username": "t1s1", "password": "t1password","first_name": "t1", "last_name": "s1", "email": "t1@s1", "section": "A"}, {"username": "t2s2", "password": "t2password","first_name": "t2", "last_name": "s2", "email": "t2@s2", "section": "B"}] 
+
+
 teachers = [{"username": "t1", "password": "teacher1"}, {"username": "t2", "password": "teacher2"}]
 
 def show_class(section):
@@ -25,10 +27,16 @@ def show_class(section):
   list_box = tk.Listbox(class_page, selectmode=tk.MULTIPLE)
   list_box.pack(fill=tk.BOTH, expand=TRUE)
 
+  #list_box.insert(tk.END, "FIRST NAME    LAST NAME    SECTION" )
+
   for value in students:
     if value['section'] == section:
-      list_box.insert(tk.END, value['first_name'] + " " + value['last_name'])
-      
+        list_box.insert(tk.END, value['first_name'] + " " + value['last_name'] + "  --->  " + value['section'])
+
+def t_sign_out(teacher_home_page):
+  teacher_home_page.destroy()
+  entry_username.delete(0, tk.END)
+  entry_password.delete(0, tk.END)
 
 def teacher_login():
   # create a new window for teacher homepage
@@ -40,10 +48,12 @@ def teacher_login():
   window_height = 500
   teacher_home_page.geometry(f"{window_width}x{window_height}")
 
-  btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=5 )
-  btn_A.pack()
-  btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=5 )
-  btn_B.pack()
+  btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=2 )
+  btn_A.pack(padx=10, pady=10)
+  btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=2 )
+  btn_B.pack(padx=10, pady=10)
+  btn_sign_out = tk.Button(teacher_home_page, text="Sign Out", command=lambda: t_sign_out(teacher_home_page), width=5, height=2 )
+  btn_sign_out.pack(padx=10, pady=10)
 
   
   
@@ -140,33 +150,6 @@ def sign_up():
 
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # create a main window
 window = tk.Tk()  # creating a window using tk
 window.title("Login Form")
@@ -179,25 +162,25 @@ window.geometry(f"{window_width}x{window_height}")
 
 # create labels
 label_username = tk.Label(window, text="Username:")  # creating the title for the textbox
-label_username.pack() # adding to the box
+label_username.pack(padx=10, pady=10) # adding to the box
 
 
 entry_username = tk.Entry(window)
-entry_username.pack()
+entry_username.pack(padx=10, pady=10)
 
 label_password = tk.Label(window, text="Password:")  # creating the title for the textbox
-label_password.pack() # adding to the box
+label_password.pack(padx=10, pady=10) # adding to the box
 
 entry_password = tk.Entry(window, show="*")
-entry_password.pack()
+entry_password.pack(padx=10, pady=10)
 
 
 # create a login and sign up button
 btn_login = tk.Button(window, text="Login", command=login)
-btn_login.pack()
+btn_login.pack(padx=10, pady=10)
 
 btn_sign_up = tk.Button(window, text="Sign Up", command=sign_up)
-btn_sign_up.pack()
+btn_sign_up.pack(padx=10, pady=10)
 
 
 window.mainloop()
