@@ -1,5 +1,5 @@
 import tkinter as tk 
-from tkinter import TRUE, Listbox, messagebox
+from tkinter import TRUE, messagebox
 import random
 import string
 
@@ -60,9 +60,9 @@ def teacher_login():
       window_height = 500
       teacher_home_page.geometry(f"{window_width}x{window_height}")
 
-      btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=2 )
+      btn_A = tk.Button(teacher_home_page, text="Class A", command=lambda: show_class("A"), width=5, height=2 )
       btn_A.pack(padx=10, pady=10)
-      btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=2 )
+      btn_B = tk.Button(teacher_home_page, text="Class B", command=lambda: show_class("B"), width=5, height=2 )
       btn_B.pack(padx=10, pady=10)
       btn_sign_out = tk.Button(teacher_home_page, text="Sign Out", command=lambda: t_sign_out(teacher_home_page), width=5, height=2 )
       btn_sign_out.pack(padx=10, pady=10)
@@ -81,17 +81,17 @@ def student_login():
       login_successful = True
       # create a new window for teacher homepage
       student_home_page = tk.Toplevel(window)
-      student_home_page.title("Student Homepage")
+      student_home_page.title(detail["first_name"] + " " + detail['last_name'])
       
       # set dimensions
       window_width = 500
       window_height = 500
       student_home_page.geometry(f"{window_width}x{window_height}")
       
-      label_name = tk.Label(student_home_page, text="Name: " + detail["first_name"] + detail['last_name'])
-      label_name.pack()
+      label_name = tk.Label(student_home_page, text="Name: " + detail["first_name"] + " " + detail['last_name'])
+      label_name.pack(padx=10, pady=10)
       label_section = tk.Label(student_home_page, text="Section: " + detail['section'])
-      label_section.pack()
+      label_section.pack(padx=10, pady=10)
       btn_sign_out = tk.Button(student_home_page, text="Sign Out", command=lambda: t_sign_out(student_home_page), width=5, height=2 )
       btn_sign_out.pack(padx=10, pady=10)
       
@@ -197,10 +197,10 @@ entry_password.pack(padx=10, pady=10)
 
 # create a login and sign up button
 btn_t_login = tk.Button(window, text="Teacher Login", command=teacher_login)
-btn_t_login.pack()
+btn_t_login.pack(padx=10, pady=10)
 
 btn_s_login = tk.Button(window, text="Student Login", command=student_login)
-btn_s_login.pack()
+btn_s_login.pack(padx=10, pady=10)
 
 btn_sign_up = tk.Button(window, text="Sign Up", command=sign_up)
 btn_sign_up.pack(padx=10, pady=10)
