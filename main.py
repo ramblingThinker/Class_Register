@@ -38,28 +38,28 @@ def t_sign_out(teacher_home_page):
   entry_username.delete(0, tk.END)
   entry_password.delete(0, tk.END)
 
-def teacher_login():
-  # create a new window for teacher homepage
-  teacher_home_page = tk.Toplevel(window)
-  teacher_home_page.title("Teacher Homepage")
+# def teacher_login():
+#   # create a new window for teacher homepage
+#   teacher_home_page = tk.Toplevel(window)
+#   teacher_home_page.title("Teacher Homepage")
 
-  # set dimensions
-  window_width = 500
-  window_height = 500
-  teacher_home_page.geometry(f"{window_width}x{window_height}")
+#   # set dimensions
+#   window_width = 500
+#   window_height = 500
+#   teacher_home_page.geometry(f"{window_width}x{window_height}")
 
-  btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=2 )
-  btn_A.pack(padx=10, pady=10)
-  btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=2 )
-  btn_B.pack(padx=10, pady=10)
-  btn_sign_out = tk.Button(teacher_home_page, text="Sign Out", command=lambda: t_sign_out(teacher_home_page), width=5, height=2 )
-  btn_sign_out.pack(padx=10, pady=10)
+#   btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=2 )
+#   btn_A.pack(padx=10, pady=10)
+#   btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=2 )
+#   btn_B.pack(padx=10, pady=10)
+#   btn_sign_out = tk.Button(teacher_home_page, text="Sign Out", command=lambda: t_sign_out(teacher_home_page), width=5, height=2 )
+#   btn_sign_out.pack(padx=10, pady=10)
 
   
   
 
 # defining login and sign_up functions
-def login():
+def teacher_login():
   username = entry_username.get()
   password = entry_password.get()
   login_successful = False
@@ -68,13 +68,34 @@ def login():
     if detail['username'] == username and detail['password'] == password:
       messagebox.showinfo("Correct details")
       login_successful = True
-      teacher_login()
+      # create a new window for teacher homepage
+      teacher_home_page = tk.Toplevel(window)
+      teacher_home_page.title("Teacher Homepage")
+    
+      # set dimensions
+      window_width = 500
+      window_height = 500
+      teacher_home_page.geometry(f"{window_width}x{window_height}")
+    
+      btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=2 )
+      btn_A.pack(padx=10, pady=10)
+      btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=2 )
+      btn_B.pack(padx=10, pady=10)
+      btn_sign_out = tk.Button(teacher_home_page, text="Sign Out", command=lambda: t_sign_out(teacher_home_page), width=5, height=2 )
+      btn_sign_out.pack(padx=10, pady=10)
+
+  if not login_successful:
+    messagebox.showerror("Login Unsuccessful")
+
+def student_login():
+  username = entry_username.get()
+  password = entry_password.get()
+  login_successful = False
 
   for detail in students:
     if detail['username'] == username and detail['password'] == password:
       messagebox.showinfo("Correct details")
       login_successful = True
-
 
   if not login_successful:
     messagebox.showerror("Login Unsuccessful")
@@ -176,8 +197,11 @@ entry_password.pack(padx=10, pady=10)
 
 
 # create a login and sign up button
-btn_login = tk.Button(window, text="Login", command=login)
-btn_login.pack(padx=10, pady=10)
+btn_t_login = tk.Button(window, text="Teacher Login", command=teacher_login)
+btn_t_login.pack()
+
+btn_s_login = tk.Button(window, text="Student Login", command=student_login)
+btn_s_login.pack()
 
 btn_sign_up = tk.Button(window, text="Sign Up", command=sign_up)
 btn_sign_up.pack(padx=10, pady=10)
