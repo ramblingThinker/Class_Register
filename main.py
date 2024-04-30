@@ -12,12 +12,12 @@ students = [{"username": "t1s1", "password": "t1password","first_name": "t1", "l
 teachers = [{"username": "t1", "password": "teacher1"}, {"username": "t2", "password": "teacher2"}]
 
 def show_class(section):
-  
+
   # create a new window for teacher homepage
   class_page = tk.Toplevel(window)
   class_page.lift()
   class_page.title("Class " + section)
-  
+
   # set dimensions
   window_width = 500
   window_height = 500
@@ -33,30 +33,13 @@ def show_class(section):
     if value['section'] == section:
         list_box.insert(tk.END, value['first_name'] + " " + value['last_name'] + "  --->  " + value['section'])
 
-def t_sign_out(teacher_home_page):
-  teacher_home_page.destroy()
+def t_sign_out(home_page):
+  home_page.destroy()
   entry_username.delete(0, tk.END)
   entry_password.delete(0, tk.END)
 
-# def teacher_login():
-#   # create a new window for teacher homepage
-#   teacher_home_page = tk.Toplevel(window)
-#   teacher_home_page.title("Teacher Homepage")
 
-#   # set dimensions
-#   window_width = 500
-#   window_height = 500
-#   teacher_home_page.geometry(f"{window_width}x{window_height}")
 
-#   btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=2 )
-#   btn_A.pack(padx=10, pady=10)
-#   btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=2 )
-#   btn_B.pack(padx=10, pady=10)
-#   btn_sign_out = tk.Button(teacher_home_page, text="Sign Out", command=lambda: t_sign_out(teacher_home_page), width=5, height=2 )
-#   btn_sign_out.pack(padx=10, pady=10)
-
-  
-  
 
 # defining login and sign_up functions
 def teacher_login():
@@ -71,12 +54,12 @@ def teacher_login():
       # create a new window for teacher homepage
       teacher_home_page = tk.Toplevel(window)
       teacher_home_page.title("Teacher Homepage")
-    
+
       # set dimensions
       window_width = 500
       window_height = 500
       teacher_home_page.geometry(f"{window_width}x{window_height}")
-    
+
       btn_A = tk.Button(teacher_home_page, text="A", command=lambda: show_class("A"), width=5, height=2 )
       btn_A.pack(padx=10, pady=10)
       btn_B = tk.Button(teacher_home_page, text="B", command=lambda: show_class("B"), width=5, height=2 )
@@ -96,24 +79,40 @@ def student_login():
     if detail['username'] == username and detail['password'] == password:
       messagebox.showinfo("Correct details")
       login_successful = True
+      # create a new window for teacher homepage
+      student_home_page = tk.Toplevel(window)
+      student_home_page.title("Student Homepage")
+      
+      # set dimensions
+      window_width = 500
+      window_height = 500
+      student_home_page.geometry(f"{window_width}x{window_height}")
+      
+      label_name = tk.Label(student_home_page, text="Name: " + detail["first_name"] + detail['last_name'])
+      label_name.pack()
+      label_section = tk.Label(student_home_page, text="Section: " + detail['section'])
+      label_section.pack()
+      btn_sign_out = tk.Button(student_home_page, text="Sign Out", command=lambda: t_sign_out(student_home_page), width=5, height=2 )
+      btn_sign_out.pack(padx=10, pady=10)
+      
 
   if not login_successful:
     messagebox.showerror("Login Unsuccessful")
 
-    
+
 
 
 def sign_up():
-  
+
   def generate_random_password():
     # Define the characters to use in the password
     characters = string.ascii_letters + string.digits + string.punctuation
-    
+
     password = ''.join(random.choice(characters) for _ in range(8))
 
     return password
 
-  
+
   def section_generator():
     random_float = random.random()
 
@@ -123,7 +122,7 @@ def sign_up():
     else:
       return "B"
 
-  
+
   def register():
     first_name = entry_first_name.get()
     last_name = entry_last_name.get()
@@ -135,9 +134,9 @@ def sign_up():
     students.append({"username": username, "password": password,"first_name": first_name, "last_name": last_name, "email": email, "section": section})
     messagebox.showinfo("Registration Complete")
     registration_window.destroy()
-    
 
-  
+
+
   # create a new window for registration
   registration_window = tk.Toplevel(window)
   registration_window.title("Student Registration")
